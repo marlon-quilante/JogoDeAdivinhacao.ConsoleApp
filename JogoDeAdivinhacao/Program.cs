@@ -15,8 +15,24 @@
             Console.Write("Digite um número para chutar: ");
             int numeroDigitado = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("\nVocê digitou o número: " + numeroDigitado);
-            Console.WriteLine("\nO número secreto é: " + numeroSecreto);
+            if (numeroDigitado == numeroSecreto)
+            {
+                Console.WriteLine("\n---------------------------------");
+                Console.WriteLine("Parabéns, você acertou!");
+                Console.WriteLine("-----------------------------------");
+            }
+            else if (numeroDigitado > numeroSecreto)
+            {
+                Console.WriteLine("\n---------------------------------");
+                Console.WriteLine("O número digitado é maior que o número secreto!");
+                Console.WriteLine("-----------------------------------");
+            }
+            else if (numeroDigitado < numeroSecreto)
+            {
+                Console.WriteLine("\n---------------------------------");
+                Console.WriteLine("O número digitado é menor que o número secreto!");
+                Console.WriteLine("-----------------------------------");
+            }
 
             Console.ReadLine();
         }
