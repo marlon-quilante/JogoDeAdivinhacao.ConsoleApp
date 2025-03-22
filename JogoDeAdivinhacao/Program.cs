@@ -6,6 +6,7 @@
         {
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine("---------------------------------");
                 Console.WriteLine("Jogo de Adivinhação");
                 Console.WriteLine("---------------------------------");
@@ -35,28 +36,56 @@
                 {
                     totalDeTentativas = 3;
                 }
+                else
+                {
+                    Console.Write("\nOpção inválida! Pressione qualquer tecla para continuar...");
+                    Console.ReadLine();
+                    continue;
+                }
 
                 //escolha do número aleatório
                 Random geradorDeNumeros = new Random();
 
                 int numeroSecreto = geradorDeNumeros.Next(1, 21);
 
+                List<int> numerosChutados = new List<int>();
+
                 //lógica do jogo
                 for (int tentativa = 1; tentativa <= totalDeTentativas; tentativa++)
                 {
                     Console.Clear();
 
-                    Console.WriteLine("---------------------------------");
+                    Console.WriteLine("-----------------------------------");
                     Console.WriteLine($"Tentativa {tentativa} de {totalDeTentativas}");
                     Console.WriteLine("-----------------------------------");
+                    Console.Write($"Números chutados: ");
 
-                    Console.Write("\nDigite um número para chutar: ");
+                    foreach (int numeroChutado in numerosChutados)
+                    {
+                        Console.Write(numeroChutado + " ");
+                    }
+
+                    Console.Write("\n\nChute um número: ");
                     int numeroDigitado = Convert.ToInt32(Console.ReadLine());
+
+                    while (numerosChutados.Contains(numeroDigitado))
+                    {
+                        Console.WriteLine("\nEsse número já foi chutado anteriormente.");
+                        Console.Write("\nChute outro número: ");
+                        numeroDigitado = Convert.ToInt32(Console.ReadLine());
+                    }
 
                     if (numeroDigitado == numeroSecreto)
                     {
-                        Console.WriteLine("\n---------------------------------");
-                        Console.WriteLine("Parabéns, você acertou!");
+                        Console.WriteLine("\n-----------------------------------");
+                        Console.WriteLine("Parabéns, você acertou o número secreto!");
+                        Console.WriteLine("-----------------------------------");
+                        break;
+                    }
+                    else if (numeroDigitado != numeroSecreto && tentativa == totalDeTentativas)
+                    {
+                        Console.WriteLine("\n-----------------------------------");
+                        Console.WriteLine($"Game over! O número secreto era: {numeroSecreto}");
                         Console.WriteLine("-----------------------------------");
                         break;
                     }
@@ -65,36 +94,34 @@
                     {
                         Console.WriteLine("\n----------------------------------------------");
                         Console.WriteLine("O número digitado é maior que o número secreto!");
-                        Console.WriteLine("\n----------------------------------------------");
+                        Console.WriteLine("----------------------------------------------");
+                        numerosChutados.Add(numeroDigitado);
                     }
                     else if (numeroDigitado < numeroSecreto)
                     {
                         Console.WriteLine("\n----------------------------------------------");
                         Console.WriteLine("O número digitado é menor que o número secreto!");
-                        Console.WriteLine("\n----------------------------------------------");
+                        Console.WriteLine("----------------------------------------------");
+                        numerosChutados.Add(numeroDigitado);
                     }
-
                     Console.Write("\nPressione qualquer tecla para continuar...");
                     Console.ReadLine();
                 }
 
-                Console.WriteLine("\n---------------------------------");
-                Console.WriteLine($"O número secreto era: {numeroSecreto}");
-                Console.WriteLine("-----------------------------------");
+                Console.Write("\nDeseja jogar novamente? S/N: ");
 
-                Console.Write("Deseja jogar novamente? S/N: ");
+                string continuar = Console.ReadLine().ToUpper();
 
-                string continuar = Console.ReadLine();
-
-                if(continuar == "S")
+                if (continuar == "S")
                 {
                     continue;
                 }
                 else
                 {
+                    Console.WriteLine("\nJogo encerrado, até mais!\n");
                     break;
                 }
             }
-        }    
+        }
     }
 }
