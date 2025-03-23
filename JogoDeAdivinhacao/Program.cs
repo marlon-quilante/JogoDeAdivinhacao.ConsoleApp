@@ -1,9 +1,13 @@
-﻿namespace JogoDeAdivinhacao
+﻿using System.Diagnostics;
+
+namespace JogoDeAdivinhacao
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            //Sistema de pontuação: Pontos perdidos = (número chutado - número aleatório) / 2
+
             while (true)
             {
                 Console.Clear();
@@ -44,19 +48,23 @@
                 }
 
                 //escolha do número aleatório
+
                 Random geradorDeNumeros = new Random();
-
-                int numeroSecreto = geradorDeNumeros.Next(1, 21);
-
+                int numeroSecreto = 20;
                 List<int> numerosChutados = new List<int>();
+                int pontuacao = 100;
 
                 //lógica do jogo
                 for (int tentativa = 1; tentativa <= totalDeTentativas; tentativa++)
                 {
-                    Console.Clear();
+                    int pontosPerdidos = 0;
 
+                    Console.Clear();
+                    Debug.WriteLine("Número secreto: " + numeroSecreto);
                     Console.WriteLine("-----------------------------------");
                     Console.WriteLine($"Tentativa {tentativa} de {totalDeTentativas}");
+                    Console.WriteLine("-----------------------------------");
+                    Console.WriteLine($"Pontuação atual: {pontuacao}");
                     Console.WriteLine("-----------------------------------");
                     Console.Write($"Números chutados: ");
 
@@ -78,14 +86,16 @@
                     if (numeroDigitado == numeroSecreto)
                     {
                         Console.WriteLine("\n-----------------------------------");
-                        Console.WriteLine("Parabéns, você acertou o número secreto!");
+                        Console.WriteLine($"Parabéns, você acertou o número secreto e finalizou o jogo com {pontuacao} pontos!");
                         Console.WriteLine("-----------------------------------");
                         break;
                     }
                     else if (numeroDigitado != numeroSecreto && tentativa == totalDeTentativas)
                     {
+                        pontuacao = 0;
                         Console.WriteLine("\n-----------------------------------");
                         Console.WriteLine($"Game over! O número secreto era: {numeroSecreto}");
+                        Console.WriteLine($"Você finalizou o jogo com {pontuacao} pontos!");
                         Console.WriteLine("-----------------------------------");
                         break;
                     }
@@ -96,6 +106,12 @@
                         Console.WriteLine("O número digitado é maior que o número secreto!");
                         Console.WriteLine("----------------------------------------------");
                         numerosChutados.Add(numeroDigitado);
+                        pontosPerdidos = (numeroDigitado - numeroSecreto) / 2;
+                        if (pontosPerdidos < 0)
+                        {
+                            pontosPerdidos *= -1;
+                        }
+                        pontuacao -= pontosPerdidos;
                     }
                     else if (numeroDigitado < numeroSecreto)
                     {
@@ -103,6 +119,12 @@
                         Console.WriteLine("O número digitado é menor que o número secreto!");
                         Console.WriteLine("----------------------------------------------");
                         numerosChutados.Add(numeroDigitado);
+                        pontosPerdidos = (numeroDigitado - numeroSecreto) / 2;
+                        if (pontosPerdidos < 0)
+                        {
+                            pontosPerdidos *= -1;
+                        }
+                        pontuacao -= pontosPerdidos;
                     }
                     Console.Write("\nPressione qualquer tecla para continuar...");
                     Console.ReadLine();
