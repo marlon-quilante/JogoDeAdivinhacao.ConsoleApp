@@ -52,7 +52,7 @@ namespace JogoDeAdivinhacao
                 Random geradorDeNumeros = new Random();
                 int numeroSecreto = geradorDeNumeros.Next(1,21);
                 List<int> numerosChutados = new List<int>();
-                int pontuacao = 100;
+                int pontuacao = 1000;
 
                 //lógica do jogo
                 for (int tentativa = 1; tentativa <= totalDeTentativas; tentativa++)
@@ -72,8 +72,8 @@ namespace JogoDeAdivinhacao
                     {
                         Console.Write(numeroChutado + " ");
                     }
-
-                    Console.Write("\n\nChute um número: ");
+                    Console.WriteLine("\n-----------------------------------");
+                    Console.Write("\nChute um número: ");
                     int numeroDigitado = Convert.ToInt32(Console.ReadLine());
 
                     while (numerosChutados.Contains(numeroDigitado))

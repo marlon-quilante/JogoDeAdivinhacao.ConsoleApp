@@ -1,6 +1,6 @@
 # Jogo De Adivinhacao
 
-![](https://imgur.com/VOdpTTX.gif)
+![](https://imgur.com/xqm9jx7.gif)
 
 ## Introdução
 
