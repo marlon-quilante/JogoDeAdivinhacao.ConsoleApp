@@ -50,7 +50,7 @@ namespace JogoDeAdivinhacao
                 //escolha do número aleatório
 
                 Random geradorDeNumeros = new Random();
-                int numeroSecreto = 20;
+                int numeroSecreto = geradorDeNumeros.Next(1,21);
                 List<int> numerosChutados = new List<int>();
                 int pontuacao = 100;
 
@@ -111,6 +111,11 @@ namespace JogoDeAdivinhacao
                         {
                             pontosPerdidos *= -1;
                         }
+                        if (pontosPerdidos < 1)
+                        {
+                            pontosPerdidos = 1;
+                        }
+
                         pontuacao -= pontosPerdidos;
                     }
                     else if (numeroDigitado < numeroSecreto)
@@ -124,6 +129,11 @@ namespace JogoDeAdivinhacao
                         {
                             pontosPerdidos *= -1;
                         }
+                        if (pontosPerdidos < 1)
+                        {
+                            pontosPerdidos = 1;
+                        }
+
                         pontuacao -= pontosPerdidos;
                     }
                     Console.Write("\nPressione qualquer tecla para continuar...");
@@ -141,6 +151,7 @@ namespace JogoDeAdivinhacao
                 else
                 {
                     Console.WriteLine("\nJogo encerrado, até mais!\n");
+                    Console.ReadLine();
                     break;
                 }
             }
